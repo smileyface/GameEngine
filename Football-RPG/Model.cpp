@@ -22,10 +22,13 @@ void Model::update_loop()
 {
 	while (Game::game_state == GameStates::play)
 	{
-		//get data from server
 		//update time
 		Model::update_time();
 		//update game objects
+		for (auto value : objects)
+		{
+			value.update(time);
+		}
 	}
 }
 
@@ -37,8 +40,7 @@ Model::~Model()
 /*
 Update the model time.
 
-Will be the elapsed time from the last step to this step.
-TODO: Will eventually come from a server.
+Elapsed time from the last step to this step.
 */
 void Model::update_time()
 {

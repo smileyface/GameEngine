@@ -6,5 +6,6 @@ public:
 	GameObject();
 	~GameObject();
 
-	virtual void update() {}; //base function. Should never be accessed.
+	//base function. Should never be accessed.
+	virtual void update(float step_time) {}; 
 };

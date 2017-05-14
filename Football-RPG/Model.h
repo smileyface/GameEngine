@@ -24,7 +24,7 @@ public:
 private:
 	void update_time();
 
-	std::vector<GameObject> board;
+	std::vector<GameObject> objects;
 	std::thread thread;
 	float time;
 	std::chrono::steady_clock::time_point previous_time;
