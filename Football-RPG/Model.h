@@ -10,7 +10,7 @@ class Model
 public:
 	Model();
 	void start();
-	void loop();
+	void update_loop();
 	~Model();
 private:
 	void update_time();

@@ -1,7 +1,5 @@
 #include "Model.h"
 
-
-
 Model::Model()
 {
 }
@@ -12,13 +10,16 @@ Starts the sim thread (thread)
 */
 void Model::start()
 {
+	Model::thread = std::thread(&Model::update_loop);
 }
+
 /*
 Actions taken in each step of the simulation.
 */
-void Model::loop()
+void Model::update_loop()
 {
 	//update time
+	Model::update_time();
 	//update game objects
 }
 
@@ -27,6 +28,11 @@ Model::~Model()
 {
 }
 
+/*
+Update the model time.
+
+Will be the elapsed time from the last step to this step.
+*/
 void Model::update_time()
 {
 	auto now_time = std::chrono::steady_clock::now();
