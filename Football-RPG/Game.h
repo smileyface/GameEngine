@@ -2,7 +2,7 @@
 
 #include "Model.h"
 
-static const enum GameStates {
+const enum GameStates {
 	play,
 	pause,
 	stop

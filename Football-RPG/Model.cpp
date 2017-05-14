@@ -20,8 +20,9 @@ Continues as long as the game is in a play state.
 */
 void Model::update_loop()
 {
-	while (Game::game_state == play)
+	while (Game::game_state == GameStates::play)
 	{
+		//get data from server
 		//update time
 		Model::update_time();
 		//update game objects
@@ -37,6 +38,7 @@ Model::~Model()
 Update the model time.
 
 Will be the elapsed time from the last step to this step.
+TODO: Will eventually come from a server.
 */
 void Model::update_time()
 {

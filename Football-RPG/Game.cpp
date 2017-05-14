@@ -11,7 +11,7 @@ Render, Model, Input,
 */
 void Game::startLoop()
 {
-	Game::game_state = play;
+	Game::game_state = GameStates::play;
 
 	//render.start();
 	model.start();
@@ -20,12 +20,12 @@ void Game::startLoop()
 
 void Game::pauseLoop()
 {
-	Game::game_state = pause;
+	Game::game_state = GameStates::pause;
 }
 
 void Game::stopLoop()
 {
-	Game::game_state = stop;
+	Game::game_state = GameStates::stop;
 }
 
 
