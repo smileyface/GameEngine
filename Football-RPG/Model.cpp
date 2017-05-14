@@ -15,6 +15,8 @@ void Model::start()
 
 /*
 Actions taken in each step of the simulation.
+
+Continues as long as the game is in a play state. 
 */
 void Model::update_loop()
 {

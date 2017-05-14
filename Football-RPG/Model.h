@@ -7,6 +7,11 @@
 
 #include "Game.h"
 #include"GameObject.h"
+
+static const enum GameModeStates {
+
+};
+
 class Model
 {
 public:
@@ -14,6 +19,8 @@ public:
 	void start();
 	void update_loop();
 	~Model();
+
+
 private:
 	void update_time();
 
