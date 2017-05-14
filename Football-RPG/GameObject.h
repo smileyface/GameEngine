@@ -6,5 +6,5 @@ public:
 	GameObject();
 	~GameObject();
 
-	void update();
+	virtual void update() {}; //base function. Should never be accessed.
 };

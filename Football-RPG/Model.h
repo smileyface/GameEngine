@@ -1,12 +1,12 @@
 #pragma once
 
-#include<vector>	// std::vector
+#include <vector>	// std::vector
 #include <thread>	// std::thread
 #include <chrono>	// std::steady_clock
 
 
 #include "Game.h"
-#include"GameObject.h"
+#include "GameObject.h"
 
 static const enum GameModeStates {
 
