@@ -18,9 +18,12 @@ Actions taken in each step of the simulation.
 */
 void Model::update_loop()
 {
-	//update time
-	Model::update_time();
-	//update game objects
+	while (Game::game_state == play)
+	{
+		//update time
+		Model::update_time();
+		//update game objects
+	}
 }
 
 

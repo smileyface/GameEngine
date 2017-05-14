@@ -4,6 +4,8 @@
 #include <thread>	// std::thread
 #include <chrono>	// std::steady_clock
 
+
+#include "Game.h"
 #include"GameObject.h"
 class Model
 {
