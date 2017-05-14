@@ -1,7 +1,5 @@
 #include "Game.h"
 
-
-
 Game::Game()
 {
 }
@@ -18,6 +16,16 @@ void Game::startLoop()
 	//render.start();
 	model.start();
 	//input.start();
+}
+
+void Game::pauseLoop()
+{
+	Game::game_state = pause;
+}
+
+void Game::stopLoop()
+{
+	Game::game_state = stop;
 }
 
 
