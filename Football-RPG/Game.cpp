@@ -13,8 +13,8 @@ void Game::startLoop()
 {
 	Game::game_state = GameStates::play;
 
-	//render.start();
-	model.start();
+	//render.start(model.get_objects);
+	model.start();//TODO: add a function pointer to consume inputs
 	//input.start();
 }
 

@@ -18,6 +18,7 @@ public:
 	Model();
 	void start();
 	void update_loop();
+	void register_game_object(GameObject object);
 	~Model();
 
 

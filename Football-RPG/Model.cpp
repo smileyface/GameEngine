@@ -32,6 +32,17 @@ void Model::update_loop()
 	}
 }
 
+/*
+Add game object to the update list.
+
+Adds the object to the end of the list
+*/
+void Model::register_game_object(GameObject object) // object to add to list
+{
+	objects.push_back(object);
+}
+
+
 
 Model::~Model()
 {
