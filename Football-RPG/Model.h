@@ -13,8 +13,11 @@ public:
 	void loop();
 	~Model();
 private:
+	void update_time();
+
 	std::vector<GameObject> board;
 	std::thread thread;
 	float time;
+	std::chrono::steady_clock::time_point previous_time;
 };
 

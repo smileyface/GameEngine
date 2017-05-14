@@ -26,3 +26,11 @@ void Model::loop()
 Model::~Model()
 {
 }
+
+void Model::update_time()
+{
+	auto now_time = std::chrono::steady_clock::now();
+	auto elapsed_time = std::chrono::duration_cast<std::chrono::duration<float>>(now_time- Model::previous_time);
+	Model::time = elapsed_time.count();
+	Model::previous_time = now_time;
+}
