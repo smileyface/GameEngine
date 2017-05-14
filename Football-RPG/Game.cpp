@@ -13,6 +13,8 @@ Render, Model, Input,
 */
 void Game::startLoop()
 {
+	Game::game_state = play;
+
 	//render.start();
 	model.start();
 	//input.start();
