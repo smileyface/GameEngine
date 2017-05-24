@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>	// std::vector
+#include <map>		// std::map
 #include <thread>	// std::thread
 #include <chrono>	// std::steady_clock
 
@@ -31,6 +32,7 @@ private:
 	std::thread thread;
 	float time;
 	std::chrono::steady_clock::time_point previous_time;
-	std::vector<int>(*consume_input)(void)
+	std::vector<int>(*consume_input)(void);
+	std::map<long, int> object_id_to_list_id;
 };
 

@@ -47,6 +47,7 @@ Adds the object to the end of the list
 void Model::register_game_object(GameObject object) // object to add to list
 {
 	objects.push_back(object);
+	object_id_to_list_id[object.id] = objects.size - 1;
 }
 
 /*

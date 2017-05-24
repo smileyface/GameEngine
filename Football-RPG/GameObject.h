@@ -8,4 +8,5 @@ public:
 
 	//base function. Should never be accessed.
 	virtual void update(float step_time) {}; 
+	long id;
 };
