@@ -25,6 +25,12 @@
     <Filter Include="Source Files\GameSource\Model">
       <UniqueIdentifier>{3aee834b-b8c8-4267-98fb-81cdf971c719}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameHeader\Input">
+      <UniqueIdentifier>{f9fe7de9-217c-42cd-b3ab-88f14968176e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameSource\Input">
+      <UniqueIdentifier>{cf1543ac-0bf8-4024-acd0-2f740fde8f5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -38,6 +44,12 @@
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\GameSource\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source Files\GameSource\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Source Files\GameSource\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +65,12 @@
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Header Files\GameHeader\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Header Files\GameHeader\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Header Files\GameHeader\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
