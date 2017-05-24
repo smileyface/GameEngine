@@ -11,21 +11,29 @@ Render, Model, Input,
 */
 void Game::startLoop()
 {
-	Game::game_state = GameStates::play;
+	Game::state = GameStates::game_play;
 
 	//render.start(model.get_objects);
 	model.start();//TODO: add a function pointer to consume inputs
 	//input.start();
 }
 
+/*
+Set the state of the game loop to pause
+*/
 void Game::pauseLoop()
 {
-	Game::game_state = GameStates::pause;
-}
+	Game::state = GameStates::game_pause;
 
+	model.pause();
+}
+/*
+stops the game loop
+restarts the 
+*/
 void Game::stopLoop()
 {
-	Game::game_state = GameStates::stop;
+	Game::state = GameStates::game_stop;
 }
 
 

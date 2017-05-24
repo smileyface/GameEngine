@@ -1,11 +1,10 @@
 #pragma once
 
 #include "Model.h"
-
 const enum GameStates {
-	play,
-	pause,
-	stop
+	game_play,
+	game_pause,
+	game_stop
 };
 
 class Game
@@ -17,7 +16,7 @@ public:
 	void stopLoop(); 
 	~Game();
 
-	static int game_state;
+	int state;
 private:
 	float gameTime;
 	Model model;
