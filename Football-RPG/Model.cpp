@@ -10,7 +10,13 @@ Starts the sim thread (thread)
 */
 void Model::start()
 {
-	Model::thread = std::thread(&Model::update_loop);
+	Model::state = ModelStates::model_play;
+	Model::thread = std::thread(&Model::update_loop, this);
+}
+
+void Model::pause()
+{
+	Model::state = ModelStates::model_pause;
 }
 
 /*
@@ -24,7 +30,7 @@ Continues as long as the game is in a play state.
 */
 void Model::update_loop()
 {
-	while (Game::game_state == GameStates::play)
+	while (Model::state == ModelStates::model_play)
 	{
 		//update time
 		Model::update_time();
@@ -47,7 +53,7 @@ Adds the object to the end of the list
 void Model::register_game_object(GameObject object) // object to add to list
 {
 	objects.push_back(object);
-	object_id_to_list_id[object.id] = objects.size - 1;
+	object_id_to_list_id[object.id] = objects.size() - 1;
 }
 
 /*

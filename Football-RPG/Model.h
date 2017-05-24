@@ -5,12 +5,12 @@
 #include <thread>	// std::thread
 #include <chrono>	// std::steady_clock
 
-
-#include "Game.h"
 #include "GameObject.h"
 
-static const enum GameModeStates {
-
+const enum ModelStates {
+	model_play,
+	model_pause,
+	model_stop
 };
 
 class Model
@@ -18,6 +18,8 @@ class Model
 public:
 	Model();
 	void start();
+	void pause();
+	void stop();
 	void update_loop();
 	void register_game_object(GameObject object);
 	void register_input_consumer_function(std::vector<int>(*consume_input)(void));
@@ -28,6 +30,7 @@ private:
 	void update_time();
 	void register_commands_with_objects(std::vector<int> commands);
 
+	int state;
 	std::vector<GameObject> objects;
 	std::thread thread;
 	float time;
