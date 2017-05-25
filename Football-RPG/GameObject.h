@@ -1,6 +1,7 @@
 #pragma once
 
-#include<map> //	std::map
+#include<map>		// std::map
+#include<vector>	// std::vector 
 
 #include "Command.h"
 
@@ -10,10 +11,11 @@ public:
 	GameObject();
 	~GameObject();
 
-	//base function. Should never be accessed.
-	virtual void update(float step_time) {}; 
+	void update(float step_time) {}; 
+	void register_control(Command command, void(*)(void));
 	long id;
 
 private:
-	std::map<Command, void(*)(void)> controlMap;
+	std::map<Command, void(*)(void)> control_map;
+	std::vector<Command> step_commands;
 };
