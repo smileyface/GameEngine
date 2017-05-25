@@ -12,13 +12,16 @@ public:
 	GameObject();
 	~GameObject();
 
-	void update(float step_time) {}; 
+	void update(float step_time); 
 	void register_control(std::shared_ptr<Command> command, void(*)(void));
 	void add_step_command(std::shared_ptr<Command> command);
-	long id;
 
 private:
 	std::map<std::shared_ptr<Command>, void(*)(void)> control_map;
 	std::vector<std::shared_ptr<Command>> step_commands;
 };
 
+namespace GameObjectInterface
+{
+	GameObject create_game_object();
+}

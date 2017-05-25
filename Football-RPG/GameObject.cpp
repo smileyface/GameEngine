@@ -11,6 +11,10 @@ GameObject::~GameObject()
 {
 }
 
+void update(float step_time)
+{
+}
+
 void GameObject::register_control(std::shared_ptr<Command> command, void(*command_function)(void))
 {
 	control_map[command] = command_function;
@@ -19,4 +23,9 @@ void GameObject::register_control(std::shared_ptr<Command> command, void(*comman
 void GameObject::add_step_command(std::shared_ptr<Command> command)
 {
 	step_commands.push_back(command);
+}
+
+GameObject GameObjectInterface::create_game_object()
+{
+	return GameObject();
 }
