@@ -16,6 +16,8 @@ public:
 	void register_control(std::shared_ptr<Command> command, void(*)(void));
 	void add_step_command(std::shared_ptr<Command> command);
 
+	long id;
+
 private:
 	std::map<std::shared_ptr<Command>, void(*)(void)> control_map;
 	std::vector<std::shared_ptr<Command>> step_commands;

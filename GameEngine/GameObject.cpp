@@ -11,8 +11,9 @@ GameObject::~GameObject()
 {
 }
 
-void update(float step_time)
+void GameObject::update(float step_time)
 {
+	//TODO: Add command handling.
 }
 
 void GameObject::register_control(std::shared_ptr<Command> command, void(*command_function)(void))
