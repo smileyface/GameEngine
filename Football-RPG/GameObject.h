@@ -13,6 +13,7 @@ public:
 
 	void update(float step_time) {}; 
 	void register_control(Command command, void(*)(void));
+	void add_step_command(Command command);
 	long id;
 
 private:
