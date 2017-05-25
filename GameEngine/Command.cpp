@@ -18,13 +18,15 @@ Command::~Command()
 
 std::shared_ptr<Command> CommandInterface::create_command()
 {
-	return std::shared_ptr<Command>();
+	return std::make_shared<Command>();
 }
 
 /*
+Create a command type
+
 offset is in miliseconds
 */
 std::shared_ptr<Command> CommandInterface::create_command(int offset)
 {
-	return std::shared_ptr<Command>(offset);
+	return std::make_shared<Command>(offset);
 }
