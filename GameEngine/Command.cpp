@@ -16,6 +16,9 @@ Command::~Command()
 {
 }
 
+/*
+Create a command type
+*/
 std::shared_ptr<Command> CommandInterface::create_command()
 {
 	return std::make_shared<Command>();

@@ -29,7 +29,7 @@ void Game::pauseLoop()
 }
 /*
 stops the game loop
-restarts the 
+restarts the state of the model
 */
 void Game::stopLoop()
 {

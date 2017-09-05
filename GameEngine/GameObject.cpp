@@ -28,5 +28,8 @@ void GameObject::add_step_command(std::shared_ptr<Command> command)
 
 GameObject GameObjectInterface::create_game_object()
 {
-	return GameObject();
+	GameObject obj;
+	obj.id = GameObjectInterface::id;
+	GameObjectInterface::id++;
+	return obj;
 }

@@ -3,6 +3,7 @@
 #include<map>		// std::map
 #include<vector>	// std::vector 
 #include<memory>	// std::shared_ptr
+#include<climits>	// LONG_MIN
 
 #include "Command.h"
 
@@ -25,5 +26,6 @@ private:
 
 namespace GameObjectInterface
 {
+	static long id = LONG_MIN;
 	GameObject create_game_object();
 }
