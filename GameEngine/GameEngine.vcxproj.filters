@@ -31,6 +31,12 @@
     <Filter Include="Source Files\GameSource\Input">
       <UniqueIdentifier>{cf1543ac-0bf8-4024-acd0-2f740fde8f5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameHeader\Time">
+      <UniqueIdentifier>{ffed039a-0417-4316-8883-faa5dc5771dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameSource\Time">
+      <UniqueIdentifier>{08040050-1711-4021-94ec-b7470a785e8d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,10 +57,14 @@
     <ClCompile Include="Command.cpp">
       <Filter>Source Files\GameSource\Input</Filter>
     </ClCompile>
+    <ClCompile Include="GameTime.cpp">
+      <Filter>Source Files\GameSource\Time</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -71,6 +81,9 @@
     </ClInclude>
     <ClInclude Include="Command.h">
       <Filter>Header Files\GameHeader\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTime.h">
+      <Filter>Header Files\GameHeader\Time</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
