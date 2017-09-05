@@ -10,4 +10,5 @@ private:
 
 public:
 	void update_time();
+	void update_time(int hertz);
 };
