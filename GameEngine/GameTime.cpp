@@ -10,21 +10,37 @@ Time::Time()
 	previous_time = std::chrono::steady_clock::now();
 }
 
+/*
+Updates the clock
+Gets the elapsed time as a percentage of a cycle
+*/
 float Time::get_elapsed_time_percentage(int hertz)
 {
+	update();
 	return elapsed_time* hertz;
 }
 
+/*
+Updates the clock
+Get raw elapsed time.
+*/
 float Time::get_elapsed_time()
 {
+	update();
 	return elapsed_time;
 }
 
+/*
+Sets the update function to {}, so it can be called, but it will not do anything
+*/
 void Time::time_stop()
 {
 	Time::update = []() {};
 }
 
+/*
+Set the update function to a lambda that updates the elapsed time.
+*/
 void Time::time_start()
 {
 	update = [this] ()
@@ -36,3 +52,4 @@ void Time::time_start()
 		Time::previous_time = current_time;
 	};
 }
+

@@ -23,3 +23,5 @@ public:
 	void time_stop();
 	void time_start();
 };
+
+//TODO: time restart
