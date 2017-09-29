@@ -11,17 +11,15 @@
 
 class Time
 {
+private:
 	std::chrono::steady_clock::time_point previous_time;
-	float step_length = -1.0f;
-	void update_time();
-
-	Time();
 	std::function<void()> update = [] {};
-	void change_step_hz(int hertz);
-	void time_stop();
-	void time_start();
-
-
 	float overall_time_used;
 	float elapsed_time;
+public:
+	Time();
+	float get_elapsed_time_percentage(int hertz);
+	float get_elapsed_time();
+	void time_stop();
+	void time_start();
 };

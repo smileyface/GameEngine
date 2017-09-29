@@ -8,29 +8,16 @@ sets previous time to time of construction.
 Time::Time()
 {
 	previous_time = std::chrono::steady_clock::now();
-	step_length = -1.0f;
 }
 
-/*
-Update the model time.
-
-Elapsed time from the last step to this step.
-*/
-void Time::update_time()
+float Time::get_elapsed_time_percentage(int hertz)
 {
-	auto current_time = std::chrono::steady_clock::now();
-	auto elapsed_time = std::chrono::duration_cast<std::chrono::duration<float>>(current_time - Time::previous_time);
-	Time::elapsed_time = elapsed_time.count;
-	Time::overall_time_used += elapsed_time.count();
-	Time::previous_time = current_time;
+	return elapsed_time* hertz;
 }
 
-/*
-Set the step length to the hertz.
-*/
-void Time::change_step_hz(int hertz)
+float Time::get_elapsed_time()
 {
-	Time::step_length = 1.0f / hertz;
+	return elapsed_time;
 }
 
 void Time::time_stop()
@@ -44,7 +31,7 @@ void Time::time_start()
 	{
 		auto current_time = std::chrono::steady_clock::now();
 		auto elapsed_time = std::chrono::duration_cast<std::chrono::duration<float>>(current_time - Time::previous_time);
-		Time::elapsed_time = elapsed_time.count;
+		Time::elapsed_time = elapsed_time.count();
 		Time::overall_time_used += elapsed_time.count();
 		Time::previous_time = current_time;
 	};
