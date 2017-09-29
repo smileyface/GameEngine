@@ -1,13 +1,10 @@
 #pragma once
 
-#include <mutex>
 #include <functional>	// function
 #include <chrono>		// steady_clock | duration_cast | duration
 #include <vector>		// vector
 #include <map>			// map
 #include <string>		// string
-
-
 
 class Time
 {
@@ -22,6 +19,5 @@ public:
 	float get_elapsed_time();
 	void time_stop();
 	void time_start();
+	void time_restart();
 };
-
-//TODO: time restart

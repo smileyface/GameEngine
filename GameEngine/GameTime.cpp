@@ -17,7 +17,7 @@ Gets the elapsed time as a percentage of a cycle
 float Time::get_elapsed_time_percentage(int hertz)
 {
 	update();
-	return elapsed_time* hertz;
+	return elapsed_time* (hertz / 1000.0f);
 }
 
 /*
@@ -51,5 +51,11 @@ void Time::time_start()
 		Time::overall_time_used += elapsed_time.count();
 		Time::previous_time = current_time;
 	};
+}
+
+void Time::time_restart()
+{
+	elapsed_time = 0.0f;
+	overall_time_used = 0.0f;
 }
 
