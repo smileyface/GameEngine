@@ -13,3 +13,7 @@ ThreadManager::~ThreadManager()
 {
 }
 
+void ThreadManager::add(Job job, int level)
+{
+}
+
