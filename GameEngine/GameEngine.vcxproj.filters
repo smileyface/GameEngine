@@ -13,75 +13,29 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\GameSource">
-      <UniqueIdentifier>{755ad087-58c1-40c5-b799-1016ac7d5b26}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GameHeader">
-      <UniqueIdentifier>{dc37f3a4-456e-418e-8bba-8d82b32d38dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GameHeader\Model">
-      <UniqueIdentifier>{5866c053-bb36-4823-8259-88b8dcc7b44e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GameSource\Model">
-      <UniqueIdentifier>{3aee834b-b8c8-4267-98fb-81cdf971c719}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GameHeader\Input">
-      <UniqueIdentifier>{f9fe7de9-217c-42cd-b3ab-88f14968176e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GameSource\Input">
-      <UniqueIdentifier>{cf1543ac-0bf8-4024-acd0-2f740fde8f5f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GameHeader\Time">
-      <UniqueIdentifier>{ffed039a-0417-4316-8883-faa5dc5771dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GameSource\Time">
-      <UniqueIdentifier>{08040050-1711-4021-94ec-b7470a785e8d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files\GameSource</Filter>
-    </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>Source Files\GameSource\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files\GameSource\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Source Files\GameSource\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Command.cpp">
-      <Filter>Source Files\GameSource\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="GameTime.cpp">
-      <Filter>Source Files\GameSource\Time</Filter>
+    <ClCompile Include="ThreadManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files\GameHeader</Filter>
+    <ClInclude Include="ThreadManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Header Files\GameHeader\Model</Filter>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files\GameHeader\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Header Files\GameHeader\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Command.h">
-      <Filter>Header Files\GameHeader\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="GameTime.h">
-      <Filter>Header Files\GameHeader\Time</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameEngine.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
