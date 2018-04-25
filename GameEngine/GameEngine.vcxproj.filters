@@ -24,22 +24,22 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Statistic.h">
+    <ClInclude Include="include\system\JobManager.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
-    <ClInclude Include="JobManager.h">
+    <ClInclude Include="include\system\Statistic.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\system\JobManager.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\Statistic.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Statistic.cpp">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\JobManager.cpp">
-      <Filter>Source Files\System</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
