@@ -8,12 +8,24 @@ int JobManager::return_one()
 
 void JobManager::add(std::function<void()> function, JobPrority level)
 {
-	JobManager::queue.push_back(std::make_pair(level, function));
+	JobManager::queue.push(std::make_pair(level, function));
 }
 
 void JobManager::add(std::function<void(void)> function)
 {
-	JobManager::add(function, JobManager::JobPrority::MID);
+	JobManager::add(function, JobPrority::MID);
 }
 
-std::vector< std::pair< JobManager::JobPrority, std::function<void()> > > JobManager::queue;
+Job JobManager::get_queued_job()
+{
+	Job top = queue.top();
+	JobManager::queue.pop();
+	return top;
+}
+
+JobCompare::JobCompare(const bool& revparam)
+{
+	JobCompare::reverse = revparam;
+}
+
+std::priority_queue< Job, std::vector<Job>, JobCompare > JobManager::queue;
