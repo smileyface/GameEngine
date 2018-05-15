@@ -16,10 +16,19 @@ void JobManager::add(std::function<void(void)> function)
 	JobManager::add(function, JobPrority::MID);
 }
 
+void JobManager::add_background(std::function<void(void)> function)
+{
+	JobManager::add(function, JobPrority::BKGROUND);
+}
+
 Job JobManager::get_queued_job()
 {
 	Job top = queue.top();
 	JobManager::queue.pop();
+	if (top.first == JobPrority::BKGROUND)
+	{
+		JobManager::add_background(top.second);
+	}
 	return top;
 }
 

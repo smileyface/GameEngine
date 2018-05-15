@@ -36,17 +36,22 @@ public:
 namespace JobManager
 {
 	int return_one();
+
+	//Add a function with a non-default priority level 
 	void add(std::function<void()>, JobPrority level);
+
+	//Add a function with a default priority level (MID)
 	void add(std::function<void(void)>);
+
+	//Add a function with a background priority level
 	void add_background(std::function<void()> function);
 
+	//Get the next job on the queue
 	Job get_queued_job();
 
-	extern std::priority_queue< Job, std::vector<Job>, JobCompare > queue; //A Leveled queue where each level is a different ThreadLevel
+	//A priority queue that holds various jobs
+	extern std::priority_queue< Job, std::vector<Job>, JobCompare > queue;
 
 }
-
-
-
 #endif // !JOBMANAGER_H
 
