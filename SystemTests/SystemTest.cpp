@@ -20,50 +20,51 @@ namespace SystemTests
 		TEST_METHOD(handle_job_without_priorities)
 		{
 			//Test the adding of jobs to the job queue without the level parameter.
-			JobManager::add(SystemTests::a);
+			JobManager::add(JobManager::make_job(SystemTests::a));
 			int queue_size = JobManager::queue.size();
-			Assert::AreEqual(1, queue_size);
+			Assert::AreEqual(1, queue_size, L"Queue is empty");
 
 			//test the first jobs level
 			Job job = JobManager::get_queued_job();
-			bool job_level = JobPrority::MID == job.first;
+			bool job_level = JobPrority::MID == job.priority;
 			Assert::IsTrue(job_level);
 
 			//clean-up
 			queue_size = JobManager::queue.size();
-			Assert::AreEqual(0, queue_size, L"Queue is empty");
+			Assert::AreEqual(0, queue_size, L"Queue is not empty");
 		}
 
 		TEST_METHOD(add_job_with_priorities)
 		{
-			JobManager::add(SystemTests::a, JobPrority::HIGH);
+			Job r = JobManager::make_job(SystemTests::a, JobPrority::HIGH);
+			JobManager::add(r);
 			int queue_size = JobManager::queue.size();
-			Assert::AreEqual(1, queue_size);
+			Assert::AreEqual(1, queue_size, L"Queue is empty");
 
 			//test the first jobs level
 			Job job = JobManager::get_queued_job();
-			bool job_level = JobPrority::HIGH == job.first;
+			bool job_level = JobPrority::HIGH == job.priority;
 			Assert::IsTrue(job_level);
 
 			//clean-up
 			queue_size = JobManager::queue.size();
-			Assert::AreEqual(0, queue_size, L"Queue is empty");
+			Assert::AreEqual(0, queue_size, L"Queue is not empty");
 		}
 
 		TEST_METHOD(handle_background_functions)
 		{
 			//test the addition manually setting priority
-			JobManager::add(SystemTests::a, JobPrority::BKGROUND);
+			JobManager::add(JobManager::make_job(SystemTests::a, JobPrority::BKGROUND));
 			int queue_size = JobManager::queue.size();
-			Assert::AreEqual(1, queue_size);
+			Assert::AreEqual(1, queue_size, L"Queue is empty");
 
 			//test pop job
 			Job job = JobManager::get_queued_job();
-			bool job_level = JobPrority::BKGROUND == job.first;
+			bool job_level = JobPrority::BKGROUND == job.priority;
 			Assert::IsTrue(job_level);
 
 			//test it is expected function
-			job.second();
+			job.function();
 			Assert::AreEqual('a', function_result);
 		}
 
@@ -79,14 +80,16 @@ namespace SystemTests
 
 		TEST_METHOD(add_lambda)
 		{
-			
 			Assert::Fail(L"Unimplemented");
 		}
 
 		//TODO: Handle interupts
 		TEST_METHOD(run_job)
 		{
-			Assert::Fail(L"Unimplemented");
+			Job job = JobManager::make_job(SystemTests::a);
+			//test it is expected function
+			job.function();
+			Assert::AreEqual('a', function_result);
 		}
 
 

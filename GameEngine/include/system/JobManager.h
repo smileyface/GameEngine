@@ -17,7 +17,14 @@ enum JobPrority
 	NOW //Interupts current job and starts this one.
 };
 
-typedef std::pair<JobPrority, std::function<void()> > Job;
+struct Job
+{
+	JobPrority priority;
+	std::function<void(void)> function;
+	int job_id;
+};
+
+
 
 class JobCompare
 {
@@ -27,24 +34,24 @@ public:
 
 	bool operator() (const Job& lhs, const Job&rhs) const
 	{
-		if (reverse) return (lhs.first>rhs.first);
-		else return (lhs.first<rhs.first);
+		if (reverse) return (lhs.priority>rhs.priority);
+		else return (lhs.priority<rhs.priority);
 	}
 };
 
 
 namespace JobManager
 {
-	int return_one();
+	//Make a job with default priority and no id
+	Job make_job(std::function<void(void)> function);
+	//Make a job with no id
+	Job make_job(std::function<void(void)> function, JobPrority priority);
+	//Make a Job
+	Job make_job(std::function<void(void)> function, JobPrority priority, int job_id);
 
-	//Add a function with a non-default priority level 
-	void add(std::function<void()>, JobPrority level);
+	//Add a job to the queue
+	void add(Job job);
 
-	//Add a function with a default priority level (MID)
-	void add(std::function<void(void)>);
-
-	//Add a function with a background priority level
-	void add_background(std::function<void()> function);
 
 	//Get the next job on the queue
 	Job get_queued_job();
