@@ -7,6 +7,24 @@ void JobManager::add(Job job)
 	queue.push(job);
 }
 
+void JobManager::remove(int id)
+{
+	std::priority_queue< Job, std::vector<Job>, JobCompare > temp_queue;
+	while (!queue.empty())
+	{
+		Job job = queue.top();
+		if (!(job.job_id == id))
+		{
+			temp_queue.push(queue.top());
+		}
+		queue.pop();
+	}
+	queue = temp_queue;
+
+
+	//TODO Remove by id
+}
+
 Job JobManager::get_queued_job()
 {
 	Job top = queue.top();

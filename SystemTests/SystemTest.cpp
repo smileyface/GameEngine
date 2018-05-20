@@ -12,6 +12,7 @@ namespace SystemTests
 	char function_result;
 	void a() { function_result = 'a'; };
 	void b() { function_result = 'b'; };
+	void c() { function_result = 'c'; };
 	TEST_CLASS(JobManagerTest)
 	{
 	public:
@@ -54,7 +55,7 @@ namespace SystemTests
 		TEST_METHOD(handle_background_functions)
 		{
 			//test the addition manually setting priority
-			JobManager::add(JobManager::make_job(SystemTests::a, JobPrority::BKGROUND));
+			JobManager::add(JobManager::make_job(SystemTests::a, JobPrority::BKGROUND, 12));
 			int queue_size = JobManager::queue.size();
 			Assert::AreEqual(1, queue_size, L"Queue is empty");
 
@@ -63,24 +64,87 @@ namespace SystemTests
 			bool job_level = JobPrority::BKGROUND == job.priority;
 			Assert::IsTrue(job_level);
 
+			queue_size = 0;
+
 			//test it is expected function
 			job.function();
 			Assert::AreEqual('a', function_result);
+			queue_size = JobManager::queue.size();
+			Assert::AreEqual(1, queue_size, L"Queue is empty");
+
+		}
+
+		TEST_METHOD(remove_job_by_id)
+		{
+			JobManager::add(JobManager::make_job(SystemTests::b, JobPrority::MID, 12));
+			JobManager::add(JobManager::make_job(SystemTests::c, JobPrority::BKGROUND, 13));
+			JobManager::add(JobManager::make_job(SystemTests::a, JobPrority::HIGH, 14));
+			JobManager::add(JobManager::make_job(SystemTests::c, JobPrority::BKGROUND, 15));
+
+			JobManager::remove(13);
+
+			int queue_size = JobManager::queue.size();
+			Assert::AreEqual(3, queue_size, L"Queue is empty");
+
+			Job job = JobManager::get_queued_job();
+			//test it is expected function
+			job.function();
+			Assert::AreEqual('a', function_result, L"Unexpected function");
+
+			job = JobManager::get_queued_job();
+			//test it is expected function
+			job.function();
+			Assert::AreEqual('b', function_result, L"Unexpected function");
+
+			job = JobManager::get_queued_job();
+			//test it is expected function
+			job.function();
+			Assert::AreEqual('c', function_result, L"Unexpected function");
 		}
 
 		TEST_METHOD(add_two_jobs_different_priorities)
 		{
-			Assert::Fail(L"Unimplemented");
+			JobManager::add(JobManager::make_job(SystemTests::b, JobPrority::MID, 12));
+			JobManager::add(JobManager::make_job(SystemTests::a, JobPrority::HIGH, 14));
+
+			Job job = JobManager::get_queued_job();
+			//test it is expected function
+			job.function();
+			Assert::AreEqual('a', function_result, L"Unexpected function");
+
+			job = JobManager::get_queued_job();
+			//test it is expected function
+			job.function();
+			Assert::AreEqual('b', function_result, L"Unexpected function");
 		}
 
 		TEST_METHOD(add_two_jobs_same_priorities)
 		{
-			Assert::Fail(L"Unimplemented");
+			JobManager::add(JobManager::make_job(SystemTests::b, JobPrority::MID, 12));
+			JobManager::add(JobManager::make_job(SystemTests::a, JobPrority::MID, 14));
+
+			Job job = JobManager::get_queued_job();
+			//test it is expected function
+			job.function();
+			Assert::AreEqual('b', function_result, L"Unexpected function");
+
+			job = JobManager::get_queued_job();
+			//test it is expected function
+			job.function();
+			Assert::AreEqual('a', function_result, L"Unexpected function");
 		}
 
 		TEST_METHOD(add_lambda)
 		{
-			Assert::Fail(L"Unimplemented");
+			Job job = JobManager::make_job([]() {
+				function_result = 'd';
+			});
+			JobManager::add(job);
+
+			job = JobManager::get_queued_job();
+			//test it is expected function
+			job.function();
+			Assert::AreEqual('d', function_result, L"Unexpected function");
 		}
 
 		//TODO: Handle interupts

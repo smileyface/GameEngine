@@ -52,6 +52,8 @@ namespace JobManager
 	//Add a job to the queue
 	void add(Job job);
 
+	void remove(int id);
+
 
 	//Get the next job on the queue
 	Job get_queued_job();
