@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 
 #include <system\JobManager.h>
+#include <system\ThreadManager.h>
 #include <system\Statistic.h>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -16,7 +17,6 @@ namespace SystemTests
 	TEST_CLASS(JobManagerTest)
 	{
 	public:
-
 
 		TEST_METHOD(handle_job_without_priorities)
 		{
@@ -147,7 +147,6 @@ namespace SystemTests
 			Assert::AreEqual('d', function_result, L"Unexpected function");
 		}
 
-		//TODO: Handle interupts
 		TEST_METHOD(run_job)
 		{
 			Job job = JobManager::make_job(SystemTests::a);
@@ -156,6 +155,15 @@ namespace SystemTests
 			Assert::AreEqual('a', function_result);
 		}
 
+	};
+
+	TEST_CLASS(ThreadManagerTest)
+	{
+	public:
+		TEST_METHOD(function_run_test)
+		{
+
+		}
 
 	};
 }
