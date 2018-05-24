@@ -40,8 +40,19 @@ public:
 };
 
 
-namespace JobManager
+class JobManager
 {
+private:
+	//A priority queue that holds various jobs
+	std::priority_queue< Job, std::vector<Job>, JobCompare > queue;
+
+
+
+public:
+
+	//number of jobs on the queue
+	int registered_jobs();
+
 	//Make a job with default priority and no id
 	Job make_job(std::function<void(void)> function);
 	//Make a job with no id
@@ -52,15 +63,15 @@ namespace JobManager
 	//Add a job to the queue
 	void add(Job job);
 
+	//remove a job by job id
 	void remove(int id);
-
 
 	//Get the next job on the queue
 	Job get_queued_job();
 
-	//A priority queue that holds various jobs
-	extern std::priority_queue< Job, std::vector<Job>, JobCompare > queue;
+	int queue_size() { return JobManager::queue.size(); }
 
-}
+
+};
 #endif // !JOBMANAGER_H
 
