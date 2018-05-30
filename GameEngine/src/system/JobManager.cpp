@@ -20,9 +20,6 @@ void JobManager::remove(int id)
 		queue.pop();
 	}
 	queue = temp_queue;
-
-
-	//TODO Remove by id
 }
 
 Job JobManager::get_queued_job()
@@ -41,8 +38,11 @@ JobCompare::JobCompare(const bool& revparam)
 	JobCompare::reverse = revparam;
 }
 
-std::priority_queue< Job, std::vector<Job>, JobCompare > JobManager::queue;
 
+int JobManager::registered_jobs()
+{
+	return queue.size();
+}
 
 Job JobManager::make_job(std::function<void(void)> function)
 {
