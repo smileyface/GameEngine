@@ -14,13 +14,24 @@ namespace SystemTests
 	void a() { function_result = 'a'; };
 	void b() { function_result = 'b'; };
 	void c() { function_result = 'c'; };
+
+	/**
+		@class JobManagerTest
+		@brief Test the JobManager
+
+	*/
+
 	TEST_CLASS(JobManagerTest)
 	{
 	public:
 
 		JobManager job_manager;
+		/**
+		@test This test case handles a job without priorities
+		@verify{@req{0003}}
+	*/
 
-		TEST_METHOD(handle_job_without_priorities)
+		TEST_METHOD(add_job_without_priorities)
 		{
 			//Test the adding of jobs to the job queue without the level parameter.
 			job_manager.add(job_manager.make_job(SystemTests::a));
@@ -35,6 +46,10 @@ namespace SystemTests
 			Assert::AreEqual(0, job_manager.queue_size(), L"Queue is not empty");
 		}
 
+		/**
+		@test This test case handles a job with priorities
+		@verify{@req{0002}}
+		*/
 		TEST_METHOD(add_job_with_priorities)
 		{
 			Job r = job_manager.make_job(SystemTests::a, JobPrority::HIGH);
@@ -50,6 +65,10 @@ namespace SystemTests
 			Assert::AreEqual(0, job_manager.queue_size(), L"Queue is not empty");
 		}
 
+		/**
+		@test This test case handles a job with priorities
+		@verify{@req{0002}}
+		*/
 		TEST_METHOD(handle_background_functions)
 		{
 			//test the addition manually setting priority
