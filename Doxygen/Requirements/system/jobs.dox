@@ -1,0 +1,54 @@
+/**
+
+@page Job_Manager_req	Job Manager
+@section jm_data_definitions Data Definitions
+@anchor DEF_0001
+<h3> DEFINITION 0.0.01: Job </h3>
+A Job is defined as a stucture containing a function pointer, a priority tracker, and an ID. 
+
+@anchor DEF_0002
+<h3> DEFINITION 0.0.02: Priority</h3>
+The priority of a Job is one of the following: <br>
+Persistant - A job that must complete once per frame, though is placed on the queue for the next frame.<br>
+Background - A job that can accomplish one task over multiple frames.<br>
+Low - A job that can be pushed to another frame if nessisary.<br>
+Mid - A job that will run this frame, even if it extends the time of the frame.<br>
+High - A job that runs before the Mid priorities.<br>
+Now - A job that throws an interupt to run. 
+
+@section jm_shall_statements Shall Statements
+
+@anchor SHALL_0001
+<h3> SHALL 0.0.01: Adding a Job </h3>
+-# The JobManager shall add a Job to the prioritized job queue.
+-# Upon addition, the queue shall prioritize in relation to JobPriority.
+@implemented{JobManager::add}
+@implemented{JobCompare}
+
+<hr>
+
+@anchor SHALL_0002
+<h3> SHALL 0.0.02: Job Creation </h3>
+-# The JobManager shall create a Job from a function AND OR a priority AND OR a task id.
+-# The default priority shall be MID.
+-# When no task id is provided, the id shall be randomly generated.
+@implemented{JobManager::make_job}
+
+<hr>
+
+@anchor SHALL_0003
+<h3> SHALL 0.0.03: Task Removal</h3>
+-# A Job shall be removed by a task id.
+-# When a task id was not provided, a Job shall be removed by function comparison.<br><br>
+<b> missing 0.0.03.2</b>
+@implemented{JobManager::remove}
+
+<hr>
+
+
+@anchor SHALL_0004
+<h3> SHALL 0.0.04: Delivery</h3>
+-# The Job at the highest priority shall be delivered.
+-# Upon delivery to the ThreadManager of a job with JobPriority::PERSISTANT, the Job shall be placed back on the job queue.<br><br>@see @ref todo
+@implemented{JobManager::get_queued_job}
+*/

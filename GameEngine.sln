@@ -7,6 +7,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngine", "GameEngine\Ga
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SystemTests", "SystemTests\SystemTests.vcxproj", "{51328C9A-88E9-46C3-995D-64F2832DC440}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{FCD1B1B4-12D6-4768-B8AE-002BD24A0D16}"
+	ProjectSection(SolutionItems) = preProject
+		Doxygen\Doxyfile = Doxygen\Doxyfile
+		Doxygen\main.dox = Doxygen\main.dox
+		Doxygen\reqs.dox = Doxygen\reqs.dox
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
