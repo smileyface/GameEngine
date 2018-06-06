@@ -1,9 +1,4 @@
 /**
-@page Requirements Requirements
-
-- @subpage Job_Manager_req
-
-//---------------------------------------------------------------------------
 
 @page Job_Manager_req	Job Manager
 @section jm_data_definitions Data Definitions
@@ -56,5 +51,4 @@ Now - A job that throws an interupt to run.
 -# The Job at the highest priority shall be delivered.
 -# Upon delivery to the ThreadManager of a job with JobPriority::PERSISTANT, the Job shall be placed back on the job queue.<br><br>@see @ref todo
 @implemented{JobManager::get_queued_job}
-
 */
