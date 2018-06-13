@@ -28,7 +28,6 @@ namespace SystemTests
 		JobManager job_manager;
 		/**
 		@test This test case handles a job without priorities
-		@verify{@req{0003}}
 	*/
 
 		TEST_METHOD(add_job_without_priorities)
@@ -48,7 +47,6 @@ namespace SystemTests
 
 		/**
 		@test This test case handles a job with priorities
-		@verify{@req{0002}}
 		*/
 		TEST_METHOD(add_job_with_priorities)
 		{
@@ -67,7 +65,6 @@ namespace SystemTests
 
 		/**
 		@test This test case handles a job with priorities
-		@verify{@req{0002}}
 		*/
 		TEST_METHOD(handle_persistant_functions)
 		{
@@ -87,6 +84,9 @@ namespace SystemTests
 
 		}
 
+		/**
+		@test This test case removes jobs by ID and also tests persistants staying power
+		*/
 		TEST_METHOD(remove_job_by_id)
 		{
 			job_manager.add(job_manager.make_job(SystemTests::b, JobPrority::MID, 12));
