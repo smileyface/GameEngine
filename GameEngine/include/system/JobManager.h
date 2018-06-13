@@ -18,9 +18,10 @@
 */
 enum JobPrority
 {
-	BKGROUND, /*!< Does not drop off the job list, but returns to the back of the queue*/
+	BKGROUND, 
 	LOW, /*!<Is the last in the queue to go*/
 	MID, /*!<Default Priority*/
+	PERSISTANT,
 	HIGH, /*!<Starts before default*/
 	NOW /*!<Interupts current job and starts this one.*/
 };

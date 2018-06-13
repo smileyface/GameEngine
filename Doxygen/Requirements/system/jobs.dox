@@ -9,12 +9,13 @@ A Job is defined as a stucture containing a function pointer, a priority tracker
 @anchor DEF_0002
 <h3> DEFINITION 0.0.02: Priority</h3>
 The priority of a Job is one of the following: <br>
-Persistant - A job that must complete once per frame, though is placed on the queue for the next frame.<br>
 Background - A job that can accomplish one task over multiple frames.<br>
 Low - A job that can be pushed to another frame if nessisary.<br>
+Persistant - A job that must complete once per frame, though is placed on the queue for the next frame.<br>
 Mid - A job that will run this frame, even if it extends the time of the frame.<br>
 High - A job that runs before the Mid priorities.<br>
 Now - A job that throws an interupt to run. 
+
 
 @section jm_shall_statements Shall Statements
 

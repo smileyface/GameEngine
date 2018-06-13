@@ -26,7 +26,7 @@ Job JobManager::get_queued_job()
 {
 	Job top = queue.top();
 	JobManager::queue.pop();
-	if (top.priority == JobPrority::BKGROUND)
+	if (top.priority == JobPrority::PERSISTANT)
 	{
 		JobManager::add(top);
 	}

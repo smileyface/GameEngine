@@ -69,15 +69,15 @@ namespace SystemTests
 		@test This test case handles a job with priorities
 		@verify{@req{0002}}
 		*/
-		TEST_METHOD(handle_background_functions)
+		TEST_METHOD(handle_persistant_functions)
 		{
 			//test the addition manually setting priority
-			job_manager.add(job_manager.make_job(SystemTests::a, JobPrority::BKGROUND, 12));
+			job_manager.add(job_manager.make_job(SystemTests::a, JobPrority::PERSISTANT, 12));
 			Assert::AreEqual(1, job_manager.queue_size(), L"Queue is empty");
 
 			//test pop job
 			Job job = job_manager.get_queued_job();
-			bool job_level = JobPrority::BKGROUND == job.priority;
+			bool job_level = JobPrority::PERSISTANT == job.priority;
 			Assert::IsTrue(job_level);
 
 			//test it is expected function
@@ -90,9 +90,9 @@ namespace SystemTests
 		TEST_METHOD(remove_job_by_id)
 		{
 			job_manager.add(job_manager.make_job(SystemTests::b, JobPrority::MID, 12));
-			job_manager.add(job_manager.make_job(SystemTests::c, JobPrority::BKGROUND, 13));
+			job_manager.add(job_manager.make_job(SystemTests::c, JobPrority::PERSISTANT, 13));
 			job_manager.add(job_manager.make_job(SystemTests::a, JobPrority::HIGH, 14));
-			job_manager.add(job_manager.make_job(SystemTests::c, JobPrority::BKGROUND, 15));
+			job_manager.add(job_manager.make_job(SystemTests::c, JobPrority::PERSISTANT, 15));
 
 			job_manager.remove(13);
 
@@ -101,18 +101,24 @@ namespace SystemTests
 
 			Job job = job_manager.get_queued_job();
 			//test it is expected function
-			job.function();
-			Assert::AreEqual('a', function_result, L"Unexpected function");
+			Assert::AreEqual(14, job.job_id, L"Unexpected function");
 
 			job = job_manager.get_queued_job();
 			//test it is expected function
-			job.function();
-			Assert::AreEqual('b', function_result, L"Unexpected function");
+			Assert::AreEqual(15, job.job_id, L"Unexpected function");
 
 			job = job_manager.get_queued_job();
 			//test it is expected function
-			job.function();
-			Assert::AreEqual('c', function_result, L"Unexpected function");
+			Assert::AreEqual(15, job.job_id, L"Unexpected function");
+
+			job_manager.remove(15);
+
+			job = job_manager.get_queued_job();
+			//test it is expected function
+			Assert::AreEqual(12, job.job_id, L"Unexpected function");
+
+			Assert::AreEqual(0, job_manager.queue_size(), L"Queue is not empty");
+
 		}
 
 		TEST_METHOD(add_two_jobs_different_priorities)
