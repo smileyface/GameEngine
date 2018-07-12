@@ -17,14 +17,13 @@ High - A job that runs before the Mid priorities.<br>
 Now - A job that throws an interupt to run. 
 
 
+
 @section jm_shall_statements Shall Statements
 
 @anchor SHALL_0001
 <h3> SHALL 0.0.01: Adding a Job </h3>
 -# The JobManager shall add a Job to the prioritized job queue.
 -# Upon addition, the queue shall prioritize in relation to JobPriority.
-@implemented{JobManager::add}
-@implemented{JobCompare}
 
 <hr>
 
@@ -33,7 +32,6 @@ Now - A job that throws an interupt to run.
 -# The JobManager shall create a Job from a function AND OR a priority AND OR a task id.
 -# The default priority shall be MID.
 -# When no task id is provided, the id shall be randomly generated.
-@implemented{JobManager::make_job}
 
 <hr>
 
@@ -41,15 +39,24 @@ Now - A job that throws an interupt to run.
 <h3> SHALL 0.0.03: Task Removal</h3>
 -# A Job shall be removed by a task id.
 -# When a task id was not provided, a Job shall be removed by function comparison.<br><br>
-<b> missing 0.0.03.2</b>
-@implemented{JobManager::remove}
 
 <hr>
 
-
 @anchor SHALL_0004
-<h3> SHALL 0.0.04: Delivery</h3>
+<h3> SHALL 0.0.04: Job Delivery</h3>
 -# The Job at the highest priority shall be delivered.
--# Upon delivery to the ThreadManager of a job with JobPriority::PERSISTANT, the Job shall be placed back on the job queue.<br><br>@see @ref todo
+-# Upon delivery to the ThreadManager of a job with JobPriority::PERSISTANT, the Job shall be placed on the next Frame.<br>
 @implemented{JobManager::get_queued_job}
+
+<hr>
+
+@anchor SHALL_0005
+<h3> SHALL 0.0.05: Frame</h3>
+-# A Frame shall be a priority queue of pre-defined jobs to run, and all other jobs spawned by those jobs.
+-# A running Frame shall end when the queue is empty.
+-# Upon the Frame ending, the Job Manager shall notify all interested systems. 
+-# The Job Manager shall then move the next frame to the current frame and reset the next frame.
+-# Upon a FRAME_INTERUPT signal recieve, all jobs shall be added to the next frame and the current frame shall immediately end.
+
+<hr>
 */

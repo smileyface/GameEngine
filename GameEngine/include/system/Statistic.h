@@ -3,7 +3,7 @@ class Statistic
 {
 public:
 
-	Statistic();
+	Statistic() noexcept;
 	~Statistic();
 
 

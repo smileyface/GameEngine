@@ -14,14 +14,13 @@
 
 /**
 @brief How urgently the job needs done within this frame. 
-@todo Add PERSISTANT and give it the functionality of BKGROUND. 
 */
 enum JobPrority
 {
-	BKGROUND, 
-	LOW, /*!<Is the last in the queue to go*/
+	BKGROUND, /*!<Runs over multiple frames.*/
+	LOW, /*!<Is the last in the queue. Not guarenteed this frame*/
 	MID, /*!<Default Priority*/
-	PERSISTANT,
+	PERSISTANT, /*!<Will run, then be placed on next frame*/
 	HIGH, /*!<Starts before default*/
 	NOW /*!<Interupts current job and starts this one.*/
 };
@@ -46,7 +45,7 @@ struct Job
 
 	This is mainly used to kill Background tasks
 	*/
-	int job_id;
+	int job_id = -1;
 };
 
 
@@ -55,7 +54,7 @@ class JobCompare
 {
 	bool reverse;
 public:
-	JobCompare(const bool& revparam = false);
+	JobCompare(const bool& revparam = false) noexcept;
 
 	bool operator() (const Job& lhs, const Job&rhs) const
 	{
@@ -65,14 +64,22 @@ public:
 };
 
 /**
+	@typedef Frame
+	@brief A priority queue for holding jobs
+*/
+typedef std::priority_queue< Job, std::vector<Job>, JobCompare > Frame;
+
+/**
 	@brief Manage jobs given by the rest of the system and deliver them to the ThreadManager
 */
 class JobManager
 {
 private:
 	//A priority queue that holds various jobs
-	std::priority_queue< Job, std::vector<Job>, JobCompare > queue;
+	Frame queue;
+	Frame nextFrame;
 
+	void end_frame();
 
 
 public:
@@ -108,7 +115,6 @@ public:
 	*/
 	void remove(int id);
 
-	//Get the next job on the queue
 	/**
 		Get the next job on the queue
 		@satisfy{@req{0004}}

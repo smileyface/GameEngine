@@ -39,6 +39,13 @@ JobCompare::JobCompare(const bool& revparam)
 }
 
 
+void JobManager::end_frame()
+{
+	//TODO: Notify all
+
+	//reset frame
+}
+
 int JobManager::registered_jobs()
 {
 	return queue.size();
