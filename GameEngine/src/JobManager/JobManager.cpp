@@ -1,5 +1,4 @@
-#include <system\JobManager.h>
-#include <system\Statistic.h>
+#include <JobManager\JobManager.h>
 
 
 void JobManager::add(Job job)
@@ -33,7 +32,7 @@ Job JobManager::get_queued_job()
 	return top;
 }
 
-JobCompare::JobCompare(const bool& revparam)
+JobCompare::JobCompare(const bool& revparam) noexcept
 {
 	JobCompare::reverse = revparam;
 }

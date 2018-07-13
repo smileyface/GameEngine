@@ -119,13 +119,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\system\JobManager.h" />
-    <ClInclude Include="include\system\Statistic.h" />
+    <ClInclude Include="include\JobManager\JobManager.h" />
+    <ClInclude Include="include\ThreadManager\ThreadManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\system\JobManager.cpp" />
-    <ClCompile Include="src\system\Statistic.cpp" />
+    <ClCompile Include="src\JobManager\JobManager.cpp" />
+    <ClCompile Include="src\ThreadManager\ThreadManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

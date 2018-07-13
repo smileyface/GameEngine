@@ -16,8 +16,14 @@
     <Filter Include="Source Files\System">
       <UniqueIdentifier>{9f0e95aa-8603-4b0b-b046-efb22424c834}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\System">
+    <Filter Include="Header Files\JobManager">
       <UniqueIdentifier>{a0a0d2cf-a2ed-4190-95d6-ad723fbf4b9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ThreadManager">
+      <UniqueIdentifier>{1db6690e-08fc-450d-a07c-733a4bec0fa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ThreadManager">
+      <UniqueIdentifier>{2cafc0fe-68e1-40ef-a470-99826aa986bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -25,21 +31,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\system\JobManager.h">
-      <Filter>Header Files\System</Filter>
+      <Filter>Header Files\JobManager</Filter>
     </ClInclude>
-    <ClInclude Include="include\system\Statistic.h">
-      <Filter>Header Files\System</Filter>
+    <ClInclude Include="include\ThreadManager\ThreadManager.h">
+      <Filter>Header Files\ThreadManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\system\JobManager.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
-    <ClCompile Include="src\system\Statistic.cpp">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ThreadManager\ThreadManager.cpp">
+      <Filter>Source Files\ThreadManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
-#include <system\JobManager.h>
-#include <system\ThreadManager.h>
-#include <system\Statistic.h>
+#include <JobManager\JobManager.h>
+#include <ThreadManager\ThreadManager.h>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
