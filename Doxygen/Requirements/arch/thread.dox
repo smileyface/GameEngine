@@ -3,7 +3,7 @@
 @section tm_data_definitions Data Definitions
 @anchor DEF_0101
 <h3> DEFINITION 0.1.01: Thread </h3>
-Thread is a _________
+Thread is a always running machine that is waiting for jobs to be posted to it.
 
 
 @section tm_shall_statements Shall Statements
@@ -13,9 +13,4 @@ Thread is a _________
 -# A pool of threads (size as determined by hardware) shall always be running and ready to accept Jobs.
 -# A ThreadManager shall contain a JobManager that will post and pop jobs.
 -# A ThreadManager shall be able to handle CPU and GPU's. 
-
-@anchor SHALL_0102
-<h3> SHALL 0.1.02: Interuption Handling</h3>
--# Upon receiving an interupt, the Thread Manager shall give the interupted Job back to the JobManager for replay in this frame.
--# 
-*/
+-# A single thread shall be always running and checking for input. The threads task shall be defined by the Control layer.
