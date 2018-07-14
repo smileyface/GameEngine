@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\System">
-      <UniqueIdentifier>{9f0e95aa-8603-4b0b-b046-efb22424c834}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\JobManager">
       <UniqueIdentifier>{a0a0d2cf-a2ed-4190-95d6-ad723fbf4b9e}</UniqueIdentifier>
     </Filter>
@@ -25,27 +22,36 @@
     <Filter Include="Source Files\ThreadManager">
       <UniqueIdentifier>{2cafc0fe-68e1-40ef-a470-99826aa986bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\JobManager">
+      <UniqueIdentifier>{9f0e95aa-8603-4b0b-b046-efb22424c834}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\system\JobManager.h">
-      <Filter>Header Files\JobManager</Filter>
-    </ClInclude>
     <ClInclude Include="include\ThreadManager\ThreadManager.h">
       <Filter>Header Files\ThreadManager</Filter>
     </ClInclude>
+    <ClInclude Include="include\JobManager\JobManager.h">
+      <Filter>Header Files\JobManager</Filter>
+    </ClInclude>
+    <ClInclude Include="include\JobManager\Job.h">
+      <Filter>Header Files\JobManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
+      <Filter>Header Files\JobManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\system\JobManager.cpp">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ThreadManager\ThreadManager.cpp">
       <Filter>Source Files\ThreadManager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\JobManager\JobManager.cpp">
+      <Filter>Source Files\JobManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
