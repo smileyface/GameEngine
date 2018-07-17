@@ -15,9 +15,6 @@ enum JobPrority
 	NOW /*!<Interupts current job and starts this one.*/
 };
 
-typedef void* argument;
-typedef std::vector<argument> argument_list;
-
 
 
 /**

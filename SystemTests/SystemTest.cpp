@@ -163,6 +163,28 @@ namespace SystemTests
 			//test it is expected function
 			job.function();
 			Assert::AreEqual('d', function_result, L"Unexpected function");
+
+			char z = 'z';
+			job = job_manager.make_job([&]() {
+				function_result = z;
+			});
+			job_manager.add(job);
+
+			job = job_manager.get_queued_job();
+			//test it is expected function
+			job.function();
+			Assert::AreEqual('z', function_result, L"Unexpected function");
+
+			z = 'q';
+			auto r = [&]() {
+				function_result = z;
+			};
+			job_manager.add(job_manager.make_job(r));
+
+			job = job_manager.get_queued_job();
+			//test it is expected function
+			job.function();
+			Assert::AreEqual('q', function_result, L"Unexpected function");
 		}
 
 		TEST_METHOD(run_job)

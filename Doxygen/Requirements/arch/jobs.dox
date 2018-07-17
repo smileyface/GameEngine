@@ -4,7 +4,7 @@
 @section jm_data_definitions Data Definitions
 @anchor DEF_0001
 <h3> DEFINITION 0.0.01: Job </h3>
-A Job is defined as a stucture containing a function pointer, a priority tracker, and an ID. 
+A Job is defined as a stucture containing a function pointer, a priority tracker, an ID, and any number of automatic arguments captured by a lambda.  
 
 @anchor DEF_0002
 <h3> DEFINITION 0.0.02: Priority</h3>
@@ -57,6 +57,7 @@ Now - A job that throws an interupt to run.
 -# Upon the Frame ending, the Job Manager shall notify all interested systems. 
 -# The Job Manager shall then move the next frame to the current frame and reset the next frame.
 -# Upon a FRAME_INTERUPT signal recieve, all jobs shall be added to the next frame and the current frame shall immediately end.
+
 
 <hr>
 */
