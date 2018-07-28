@@ -53,5 +53,8 @@
     <ClCompile Include="src\JobManager\JobManager.cpp">
       <Filter>Source Files\JobManager</Filter>
     </ClCompile>
+    <ClCompile Include="Job.cpp">
+      <Filter>Source Files\JobManager</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

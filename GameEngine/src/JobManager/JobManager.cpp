@@ -3,68 +3,52 @@
 
 void JobManager::add(Job job)
 {
-	queue.push(job);
+	cur_frame.push(job);
 }
 
-void JobManager::remove(int id)
+void JobManager::remove(Job id)
 {
-	std::priority_queue< Job, std::vector<Job>, JobCompare > temp_queue;
-	while (!queue.empty())
+	Frame temp_queue;
+	while (!cur_frame.empty())
 	{
-		Job job = queue.top();
-		if (!(job.job_id == id))
+		Job job = cur_frame.top();
+		if (!(job == id))
 		{
-			temp_queue.push(queue.top());
+			temp_queue.push(cur_frame.top());
 		}
-		queue.pop();
+		cur_frame.pop();
 	}
-	queue = temp_queue;
+	cur_frame = temp_queue;
 }
 
-Job JobManager::get_queued_job()
+Job JobManager::get_next_job()
 {
-	Job top = queue.top();
-	JobManager::queue.pop();
-	if (top.priority == JobPrority::PERSISTANT)
+	Job top = cur_frame.top();
+	JobManager::cur_frame.pop();
+	if (top.get_priority() == JobPriority::PERSISTANT)
 	{
-		JobManager::add(top);
+		next_frame.push(top);
+	}
+	if (cur_frame.empty())
+	{
+		end_frame();
 	}
 	return top;
 }
-
-JobCompare::JobCompare(const bool& revparam) noexcept
-{
-	JobCompare::reverse = revparam;
-}
-
 
 void JobManager::end_frame()
 {
 	//TODO: Notify all
 
 	//reset frame
+	cur_frame = next_frame;
+	while (!next_frame.empty())
+	{
+		next_frame.pop();
+	}
 }
 
 int JobManager::registered_jobs()
 {
-	return queue.size();
-}
-
-Job JobManager::make_job(std::function<void(void)> function)
-{
-	return make_job(function, JobPrority::MID);
-}
-
-Job JobManager::make_job(std::function<void(void)> function, JobPrority priority)
-{
-	return make_job(function, priority, -1);
-}
-
-Job JobManager::make_job(std::function<void(void)> function, JobPrority priority, int job_id)
-{
-	Job job;
-	job.function = function;
-	job.priority = priority;
-	job.job_id = job_id;
-	return job;
+	return cur_frame.size();
 }

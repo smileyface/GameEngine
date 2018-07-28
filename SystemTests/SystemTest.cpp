@@ -1,7 +1,10 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
+#include <iostream>
+
 #include <JobManager\JobManager.h>
+#include <JobManager/Job.h>
 #include <ThreadManager\ThreadManager.h>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -13,6 +16,7 @@ namespace SystemTests
 	void a() { function_result = 'a'; };
 	void b() { function_result = 'b'; };
 	void c() { function_result = 'c'; };
+	void d() { function_result = 'd'; };
 
 	/**
 		@class JobManagerTest
@@ -32,12 +36,12 @@ namespace SystemTests
 		TEST_METHOD(add_job_without_priorities)
 		{
 			//Test the adding of jobs to the job queue without the level parameter.
-			job_manager.add(job_manager.make_job(SystemTests::a));
+			job_manager.add(Job(SystemTests::a));
 			Assert::AreEqual(1, job_manager.queue_size(), L"Queue is empty");
 
 			//test the first jobs level
-			Job job = job_manager.get_queued_job();
-			bool job_level = JobPrority::MID == job.priority;
+			Job job = job_manager.get_next_job();
+			bool job_level = JobPriority::MID == job.get_priority();
 			Assert::IsTrue(job_level);
 
 			//clean-up
@@ -49,13 +53,14 @@ namespace SystemTests
 		*/
 		TEST_METHOD(add_job_with_priorities)
 		{
-			Job r = job_manager.make_job(SystemTests::a, JobPrority::HIGH);
+			Job r(SystemTests::a);
+			r.set_priority(JobPriority::HIGH);
 			job_manager.add(r);
 			Assert::AreEqual(1, job_manager.queue_size(), L"Queue is empty");
 
 			//test the first jobs level
-			Job job = job_manager.get_queued_job();
-			bool job_level = JobPrority::HIGH == job.priority;
+			Job job = job_manager.get_next_job();
+			bool job_level = JobPriority::HIGH == job.get_priority();
 			Assert::IsTrue(job_level);
 
 			//clean-up
@@ -67,17 +72,21 @@ namespace SystemTests
 		*/
 		TEST_METHOD(handle_persistant_functions)
 		{
+			Job test_job(SystemTests::a);
+			test_job.set_priority(JobPriority::PERSISTANT);
+			idType test_job_id = test_job.get_job_id();
+
 			//test the addition manually setting priority
-			job_manager.add(job_manager.make_job(SystemTests::a, JobPrority::PERSISTANT, 12));
+			job_manager.add(test_job);
 			Assert::AreEqual(1, job_manager.queue_size(), L"Queue is empty");
 
 			//test pop job
-			Job job = job_manager.get_queued_job();
-			bool job_level = JobPrority::PERSISTANT == job.priority;
+			Job job = job_manager.get_next_job();
+			bool job_level = JobPriority::PERSISTANT == job.get_priority();
 			Assert::IsTrue(job_level);
 
 			//test it is expected function
-			job.function();
+			job.execute();
 			Assert::AreEqual('a', function_result);
 			Assert::AreEqual(1, job_manager.queue_size(), L"Queue is empty");
 
@@ -88,121 +97,134 @@ namespace SystemTests
 		*/
 		TEST_METHOD(remove_job_by_id)
 		{
-			job_manager.add(job_manager.make_job(SystemTests::b, JobPrority::MID, 12));
-			job_manager.add(job_manager.make_job(SystemTests::c, JobPrority::PERSISTANT, 13));
-			job_manager.add(job_manager.make_job(SystemTests::a, JobPrority::HIGH, 14));
-			job_manager.add(job_manager.make_job(SystemTests::c, JobPrority::PERSISTANT, 15));
+			Job test_job_1(SystemTests::b);
+			test_job_1.set_priority(JobPriority::MID);
 
-			job_manager.remove(13);
+			Job test_job_2(SystemTests::c);
+			test_job_2.set_priority(JobPriority::PERSISTANT);
 
-			int queue_size = job_manager.queue_size();
-			Assert::AreEqual(3, queue_size, L"Queue is empty");
+			Job test_job_3(SystemTests::a);
+			test_job_3.set_priority(JobPriority::HIGH);
 
-			Job job = job_manager.get_queued_job();
-			//test it is expected function
-			Assert::AreEqual(14, job.job_id, L"Unexpected function");
+			Job test_job_4(SystemTests::d);
+			test_job_4.set_priority(JobPriority::PERSISTANT);
 
-			job = job_manager.get_queued_job();
-			//test it is expected function
-			Assert::AreEqual(15, job.job_id, L"Unexpected function");
+			job_manager.add(test_job_1);
+			job_manager.add(test_job_2);
+			job_manager.add(test_job_3);
+			job_manager.add(test_job_4);
 
-			job = job_manager.get_queued_job();
-			//test it is expected function
-			Assert::AreEqual(15, job.job_id, L"Unexpected function");
+			//todo Finish this test case
 
-			job_manager.remove(15);
+			job_manager.remove(test_job_3);
 
-			job = job_manager.get_queued_job();
-			//test it is expected function
-			Assert::AreEqual(12, job.job_id, L"Unexpected function");
+			Job cur_job = job_manager.get_next_job();
+			bool is_job = (cur_job == test_job_2) || (cur_job == test_job_4);
+			Assert::IsTrue(is_job, L"Job 2 or Job 4 is not expected job");
 
-			Assert::AreEqual(0, job_manager.queue_size(), L"Queue is not empty");
+			cur_job = job_manager.get_next_job();
+			is_job = (cur_job == test_job_2) || (cur_job == test_job_4);
+			Assert::IsTrue(is_job, L"Job 2 or Job 4 is not expected job");
+
+			cur_job = job_manager.get_next_job();
+			is_job = cur_job == test_job_1;
+			Assert::IsTrue(is_job, L"Job 1 is not expected job");
+
+
+
+			//next frame
+			cur_job = job_manager.get_next_job();
+			is_job = (cur_job == test_job_2) || (cur_job == test_job_4);
+			Assert::IsTrue(is_job, L"Job 2 or Job 4 is not expected job");
+
+			cur_job = job_manager.get_next_job();
+			is_job = (cur_job == test_job_2) || (cur_job == test_job_4);
+			Assert::IsTrue(is_job, L"Job 2 or Job 4 is not expected job");
 
 		}
 
 		TEST_METHOD(add_two_jobs_different_priorities)
 		{
-			job_manager.add(job_manager.make_job(SystemTests::b, JobPrority::MID, 12));
-			job_manager.add(job_manager.make_job(SystemTests::a, JobPrority::HIGH, 14));
+			Job test_job_1(SystemTests::b);
 
-			Job job = job_manager.get_queued_job();
+			Job test_job_2(SystemTests::a);
+			test_job_2.set_priority(JobPriority::HIGH);
+
+			job_manager.add(test_job_1);
+			job_manager.add(test_job_2);
+
+			Job job = job_manager.get_next_job();
 			//test it is expected function
-			job.function();
+			job.execute();
 			Assert::AreEqual('a', function_result, L"Unexpected function");
 
-			job = job_manager.get_queued_job();
+			job = job_manager.get_next_job();
 			//test it is expected function
-			job.function();
+			job.execute();
 			Assert::AreEqual('b', function_result, L"Unexpected function");
 		}
 
 		TEST_METHOD(add_two_jobs_same_priorities)
 		{
-			job_manager.add(job_manager.make_job(SystemTests::b, JobPrority::MID, 12));
-			job_manager.add(job_manager.make_job(SystemTests::a, JobPrority::MID, 14));
+			Job test_job_1(SystemTests::b);
 
-			Job job = job_manager.get_queued_job();
+			Job test_job_2(SystemTests::a);
+
+			job_manager.add(test_job_1);
+			job_manager.add(test_job_2);
+
+			Job job = job_manager.get_next_job();
 			//test it is expected function
-			job.function();
+			job.execute();
 			Assert::AreEqual('b', function_result, L"Unexpected function");
 
-			job = job_manager.get_queued_job();
+			job = job_manager.get_next_job();
 			//test it is expected function
-			job.function();
+			job.execute();
 			Assert::AreEqual('a', function_result, L"Unexpected function");
 		}
 
 		TEST_METHOD(add_lambda)
 		{
-			Job job = job_manager.make_job([]() {
+			Job job([]() {
 				function_result = 'd';
 			});
 			job_manager.add(job);
 
-			job = job_manager.get_queued_job();
+			job = job_manager.get_next_job();
 			//test it is expected function
-			job.function();
+			job.execute();
 			Assert::AreEqual('d', function_result, L"Unexpected function");
 
 			char z = 'z';
-			job = job_manager.make_job([&]() {
+			Job job_2([&]() {
 				function_result = z;
 			});
-			job_manager.add(job);
+			job_manager.add(job_2);
 
-			job = job_manager.get_queued_job();
+			job = job_manager.get_next_job();
 			//test it is expected function
-			job.function();
+			job.execute();
 			Assert::AreEqual('z', function_result, L"Unexpected function");
 
 			z = 'q';
 			auto r = [&]() {
 				function_result = z;
 			};
-			job_manager.add(job_manager.make_job(r));
+			job_manager.add(Job(r));
 
-			job = job_manager.get_queued_job();
+			job = job_manager.get_next_job();
 			//test it is expected function
-			job.function();
+			job.execute();
 			Assert::AreEqual('q', function_result, L"Unexpected function");
 		}
 
 		TEST_METHOD(run_job)
 		{
-			Job job = job_manager.make_job(SystemTests::a);
+			Job job(SystemTests::a);
 			//test it is expected function
-			job.function();
+			job.execute();
 			Assert::AreEqual('a', function_result);
-		}
-
-	};
-
-	TEST_CLASS(ThreadManagerTest)
-	{
-	public:
-		TEST_METHOD(function_run_test)
-		{
-
 		}
 
 	};

@@ -28,29 +28,17 @@ class JobManager
 {
 private:
 	//A priority queue that holds various jobs
-	Frame queue;
-	Frame nextFrame;
+	Frame cur_frame;
+	Frame next_frame;
 
 	void end_frame();
+	void add_to_next_frame(Job job);
 
 
 public:
 
 	//number of jobs on the queue
 	int registered_jobs();
-
-	/**
-	Make a job with default priority and no id
-	*/
-	Job make_job(std::function<void(void)> function);
-	/**
-	Make a job with no id
-	*/
-	Job make_job(std::function<void(void)> function, JobPrority priority);
-	/**
-	Make a job with no id
-	*/
-	Job make_job(std::function<void(void)> function, JobPrority priority, int job_id);
 
 	/**
 	This is the basic executive that schedules processes.
@@ -60,14 +48,14 @@ public:
 	/**
 	Remove a job by id
 	*/
-	void remove(int id);
+	void remove(Job id);
 
 	/**
 		Get the next job on the queue
 	*/
-	Job get_queued_job();
+	Job get_next_job();
 
-	int queue_size() { return JobManager::queue.size(); }
+	int queue_size() { return JobManager::cur_frame.size(); }
 
 
 };

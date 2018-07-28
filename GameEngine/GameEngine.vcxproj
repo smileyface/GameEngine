@@ -128,6 +128,7 @@
     <ClInclude Include="include\ThreadManager\ThreadManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Job.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\JobManager\JobManager.cpp" />
     <ClCompile Include="src\ThreadManager\ThreadManager.cpp" />
