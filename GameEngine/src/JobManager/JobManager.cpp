@@ -25,7 +25,7 @@ Job JobManager::get_next_job()
 {
 	Job top = cur_frame.top();
 	JobManager::cur_frame.pop();
-	if (top.get_priority() == JobPriority::PERSISTANT)
+	if (top.get_persistant())
 	{
 		next_frame.push(top);
 	}

@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include <JobManager\JobManager.h>
-#include <JobManager/Job.h>
+#include <JobManager\Job.h>
 #include <ThreadManager\ThreadManager.h>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -72,74 +72,66 @@ namespace SystemTests
 		*/
 		TEST_METHOD(handle_persistant_functions)
 		{
-			Job test_job(SystemTests::a);
-			test_job.set_priority(JobPriority::PERSISTANT);
-			idType test_job_id = test_job.get_job_id();
+			Job test_job_1(SystemTests::b);
+			test_job_1.set_persistant(true);
+			job_manager.add(test_job_1);
 
-			//test the addition manually setting priority
-			job_manager.add(test_job);
-			Assert::AreEqual(1, job_manager.queue_size(), L"Queue is empty");
+			Job test_job_2(SystemTests::a);
+			test_job_2.set_priority(JobPriority::SYSTEM);
+			test_job_2.set_persistant(true);
+			job_manager.add(test_job_2);
 
-			//test pop job
-			Job job = job_manager.get_next_job();
-			bool job_level = JobPriority::PERSISTANT == job.get_priority();
-			Assert::IsTrue(job_level);
+			Job next_job = job_manager.get_next_job();
+			bool is_job = next_job == test_job_1;
+			Assert::IsTrue(is_job, L"Job 1 is not expected job");
 
-			//test it is expected function
-			job.execute();
-			Assert::AreEqual('a', function_result);
-			Assert::AreEqual(1, job_manager.queue_size(), L"Queue is empty");
+			next_job = job_manager.get_next_job();
+			is_job = next_job == test_job_2;
+			Assert::IsTrue(is_job, L"Job 2 is not expected job");
 
+			next_job = job_manager.get_next_job();
+			is_job = next_job == test_job_1;
+			Assert::IsTrue(is_job, L"Job 1 is not expected job");
 		}
 
 		/**
-		@test This test case removes jobs by ID and also tests persistants staying power
+		@test This test case removes jobs by ID
 		*/
 		TEST_METHOD(remove_job_by_id)
 		{
 			Job test_job_1(SystemTests::b);
 			test_job_1.set_priority(JobPriority::MID);
 
-			Job test_job_2(SystemTests::c);
-			test_job_2.set_priority(JobPriority::PERSISTANT);
+			Job test_job_2(SystemTests::a);
+			test_job_2.set_priority(JobPriority::SYSTEM);
+			test_job_2.set_persistant(true);
 
 			Job test_job_3(SystemTests::a);
 			test_job_3.set_priority(JobPriority::HIGH);
 
-			Job test_job_4(SystemTests::d);
-			test_job_4.set_priority(JobPriority::PERSISTANT);
 
 			job_manager.add(test_job_1);
 			job_manager.add(test_job_2);
 			job_manager.add(test_job_3);
-			job_manager.add(test_job_4);
 
 			//todo Finish this test case
 
 			job_manager.remove(test_job_3);
 
 			Job cur_job = job_manager.get_next_job();
-			bool is_job = (cur_job == test_job_2) || (cur_job == test_job_4);
-			Assert::IsTrue(is_job, L"Job 2 or Job 4 is not expected job");
-
-			cur_job = job_manager.get_next_job();
-			is_job = (cur_job == test_job_2) || (cur_job == test_job_4);
-			Assert::IsTrue(is_job, L"Job 2 or Job 4 is not expected job");
-
-			cur_job = job_manager.get_next_job();
-			is_job = cur_job == test_job_1;
+			bool is_job = cur_job == test_job_1;
 			Assert::IsTrue(is_job, L"Job 1 is not expected job");
 
-
-
-			//next frame
 			cur_job = job_manager.get_next_job();
-			is_job = (cur_job == test_job_2) || (cur_job == test_job_4);
-			Assert::IsTrue(is_job, L"Job 2 or Job 4 is not expected job");
+			is_job = cur_job == test_job_2;
+			Assert::IsTrue(is_job, L"Job 2 is not expected job");
 
 			cur_job = job_manager.get_next_job();
-			is_job = (cur_job == test_job_2) || (cur_job == test_job_4);
-			Assert::IsTrue(is_job, L"Job 2 or Job 4 is not expected job");
+			is_job = cur_job == test_job_2;
+			Assert::IsTrue(is_job, L"Job 2 is not expected job");
+
+			job_manager.remove(test_job_2);
+			Assert::AreEqual(job_manager.queue_size(), 0, L"Queue is not empty");
 
 		}
 
@@ -228,4 +220,6 @@ namespace SystemTests
 		}
 
 	};
+
+
 }

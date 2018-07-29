@@ -9,10 +9,9 @@ typedef unsigned int idType;
 */
 enum JobPriority
 {
-	BKGROUND, /*!<Runs over multiple frames.*/
+	SYSTEM, /*!<Runs over multiple frames.*/
 	LOW, /*!<Is the last in the queue. Not guarenteed this frame*/
 	MID, /*!<Default Priority*/
-	PERSISTANT, /*!<Will run, then be placed on next frame*/
 	HIGH, /*!<Starts before default*/
 	NOW /*!<Interupts current job and starts this one.*/
 };
@@ -37,12 +36,19 @@ private:
 	This is mainly used to kill Background tasks
 	*/
 	idType job_id = 0;
+
+	/**
+	
+	*/
+	bool is_persistant;
 public:
 	Job(std::function<void(void) > function);
 	void execute();
 	void set_priority(JobPriority);
 	JobPriority get_priority();
 	idType get_job_id();
+	void set_persistant(bool persistence);
+	bool get_persistant();
 
 	/**
 	@brief compare equivalence by id
