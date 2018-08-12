@@ -42,6 +42,7 @@ private:
 	*/
 	bool is_persistant;
 public:
+	Job() {}
 	Job(std::function<void(void) > function);
 	void execute();
 	void set_priority(JobPriority);

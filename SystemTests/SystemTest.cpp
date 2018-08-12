@@ -221,5 +221,15 @@ namespace SystemTests
 
 	};
 
+	TEST_CLASS(ThreadManagerTest)
+	{
+	public:
+		ThreadManager tm;
 
+		TEST_METHOD(Running_job)
+		{
+		}
+		
+	
+	};
 }
